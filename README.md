@@ -5,12 +5,38 @@ This repository was create to show how mutation test works, and to discuss about
 Is it possible also comparing this approach with code coverage (more popular)
 
 ## Instructions
+## Installation
 
-As it was written in Python3, it needs it installed. I will demonstrate the installation to a Linux Enviroment.
+Here will be shown how to install this repository to a beginer user. Probably there are few steps that you don't need to do. This session will be show in a Linux Enviroment
+
+### Installing `Git`
+
+This repository is versioned using `git`. The first step is install the `git`. 
+
+```bash
+$ sudo apt-get install git
+```
+
+### Download this repository
+
+If you don't know how to download this repository, just use the command above.
+
+```bash
+# Go to the folder that you wanna download this, for example the folder Projects
+$ cd ~/Projects
+
+# Dowload, or "clone", the repository
+$ git clone https://github.com/derrix060/MutationTestingPresentation.git
+
+# Go to the folder
+$ cd MutationTestingPresentation
+```
 
 ### Installing Python3
 
 As this repository was written in `python3`, you need it installed.
+
+The first step is check if you have `python3` installed, and if no, download it.
 
 ```bash
 $ python3 --version
@@ -31,7 +57,9 @@ Python 3.X.X
 
 This step is not essencial, but is recommended.
 
-I will show how to install the conda virtualenv (more specific the Miniconda)
+
+#### Download and install `conda`
+
 
 Please follow [this tutorial](https://conda.io/docs/user-guide/install/linux.html) to install it on your PC.
 
@@ -102,8 +130,6 @@ Proceed ([y]/n)?
 #
 ```
 
-
-
 #### Activating a virtualenv
 
 After create you can "enter" in this env
@@ -112,5 +138,22 @@ After create you can "enter" in this env
 
 $ source activate mutationTestEnv
 (mutationTestEnv)  {user}@{group} {folder} $
+```
+
+### Installing `PIP`
+
+`PIP` is a package manager. To get the latest `pip` from source, run command
+```bash
+# Download pip installation script from official site using wget.
+
+$ wget -O- https://bootstrap.pypa.io/get-pip.py | sudo python3
+```
+
+### Installing the dependencies)
+
+If you want to use any virtualenv, please make sure that it's activated. 
+
+```bash
+$ pip install -r requirements.txt
 ```
 
