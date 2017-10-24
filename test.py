@@ -58,6 +58,10 @@ class GoodTestBankAccount():
         with self.assertRaises(ValueError):
             self.account.deposit(0)
 
+    def test_withdraw_zero_amount(self):
+        with self.assertRaises(ValueError):
+            self.account.withdraw(0)
+
     def test_withdraw_positive_amount_min(self):
         self.account.deposit(100)
         result = self.account.withdraw(99)
