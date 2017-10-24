@@ -1,8 +1,7 @@
-# Practical Mutation Test
+# Mutation Testing Presentation
 
-This repository was create to show how mutation test works, and to discuss about when and how to use it.
+This repository shows one example of mutation test, compare with code coverage metric and finish with a question: [Is the code perfect?](#is-the-code-perfect). It also shows how to install the complete enviroment to run this example from scratch.
 
-Is it possible also comparing this approach with code coverage (more popular)
 
 ## Contents
 
