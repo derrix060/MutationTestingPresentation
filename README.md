@@ -4,7 +4,18 @@ This repository was create to show how mutation test works, and to discuss about
 
 Is it possible also comparing this approach with code coverage (more popular)
 
-## Instructions
+## Contents
+
+- [Installation](#installation)
+    - [Installing `Git`](#installing-git)
+    - [Download this repository](#download-this-repository)
+    - [Installing `Python3`](#installing-python3)
+    - [Virtual Environment](#virtual-environment)
+        - [Download and install `conda`](#download-and-install-conda)
+        - [Creating a new virtualenv](#creating-a-new-virtualenv)
+        - [Activating a virtualenv](#activating-a-virtualenv)
+    - [Installing `PIP`](#installing-pip)
+    - [Installing the dependencies](#installing-the-dependencies)
 ## Installation
 
 Here will be shown how to install this repository to a beginer user. Probably there are few steps that you don't need to do. This session will be show in a Linux Enviroment
