@@ -10,7 +10,7 @@ As it was written in Python3, it needs it installed. I will demonstrate the inst
 
 ### Installing Python3
 
-The first step is check if you have python3 installed, and if no, download it.
+As this repository was written in `python3`, you need it installed.
 
 ```bash
 $ python3 --version
@@ -65,7 +65,7 @@ $ conda list
 
 #### Creating a new virtualenv
 
-Now create a new virtualenv. I will show how to do with conda
+Now create a new virtualenv. I will show how to do with `conda`
 
 ```bash
 # The sintax is this one: $ conda create -n {nameOfEnv} python={version}
