@@ -16,6 +16,14 @@ Is it possible also comparing this approach with code coverage (more popular)
         - [Activating a virtualenv](#activating-a-virtualenv)
     - [Installing `PIP`](#installing-pip)
     - [Installing the dependencies](#installing-the-dependencies)
+- [Explanation of BankAccount class](#explanation-of-bankaccount-class)
+- [Explanation of `Mutation Test`](#explanation-of-mutation-test)
+- [Uses](#uses)
+    - [Code `coverage`](#code-coverage)
+    - [`Mutation`](#mutation)
+    - [Eliminating the mutants](#eliminating-the-mutants)
+    - [Is the code perfect?](#is-the-code-perfect)
+
 ## Installation
 
 Here will be shown how to install this repository to a beginer user. Probably there are few steps that you don't need to do. This session will be show in a Linux Enviroment
