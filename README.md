@@ -1,6 +1,6 @@
 # Mutation Testing Presentation
 
-This repository shows one example of mutation test, compare with code coverage metric and finish with a question: [Is the code perfect?](#is-the-code-perfect). It also shows how to install the complete enviroment to run this example from scratch.
+This repository shows one example of mutation test, compare with code coverage metric and finish with a question: [Is the code perfect?](#is-the-code-perfect). It also shows how to install the complete environment to run this example from scratch.
 
 
 ## Contents
@@ -25,11 +25,11 @@ This repository shows one example of mutation test, compare with code coverage m
 
 ## Installation
 
-Here will be shown how to install this repository to a beginer user. Probably there are few steps that you don't need to do. This session will be show in a Linux Enviroment
+Here will be shown how to install this repository to a beginner user. Probably there are a few steps that you don't need to do. This session will be shown in a Linux Environment.
 
 ### Installing `Git`
 
-This repository is versioned using `git`. The first step is install the `git`. 
+This repository is versioned using `git`. The first step is installing the `git`.
 
 ```bash
 $ sudo apt-get install git
@@ -54,13 +54,13 @@ $ cd MutationTestingPresentation
 
 As this repository was written in `python3`, you need it installed.
 
-The first step is check if you have `python3` installed, and if no, download it.
+The first step is to check if you have `python3` installed, and if not, download it.
 
 ```bash
 $ python3 --version
 Python 3.X.X
 
-# If this message appear, you need to install the python3
+# If this message appears, you need to install the python3
 command not found: python3
 $ sudo apt-get install python3
 
@@ -73,7 +73,7 @@ Python 3.X.X
 
 ### Virtual Environment
 
-This step is not essencial, but is recommended.
+This step is not essential, but is recommended.
 
 
 #### Download and install `conda`
@@ -81,7 +81,7 @@ This step is not essencial, but is recommended.
 
 Please follow [this tutorial](https://conda.io/docs/user-guide/install/linux.html) to install it on your PC.
 
-After install, check if is it working
+After install, check if it is working
 
 ```bash
 $ conda list
@@ -97,7 +97,7 @@ conda-env                 2.6.0                         0
 yaml                      0.1.6                         0  
 zlib                      1.2.8                         3
 
-# If this message appear, you need to add the folder in your PATH or copy it to /home/bin
+# If this message appears, you need to add the folder in your PATH or copy it to /home/bin
 command not found: conda
 
 # To copy it
@@ -114,7 +114,7 @@ $ conda list
 Now create a new virtualenv. I will show how to do with `conda`
 
 ```bash
-# The sintax is this one: $ conda create -n {nameOfEnv} python={version}
+# This is the syntax: $ conda create -n {nameOfEnv} python={version}
 # For example:
 $ conda create -n mutationTestEnv python=3.6
 
@@ -188,7 +188,7 @@ This is not the best implementation of one bank account, but is fine enough to s
 
 ## Explanation of `Mutation Test`
 
-I will not explain the concepts of `mutation test`, because there are a lot of material online that do this. I recomend see [this pdf, from Stuart Anderson](http://www.inf.ed.ac.uk/teaching/courses/st/2011-12/Resource-folder/09_mutation.pdf) to learn about or [one article from Frank Appel](http://www.codeaffine.com/2015/10/05/what-the-heck-is-mutation-testing/) that show the concepts and some examples using [`JUnit`](http://junit.org) and [`EclEmma`](http://www.eclemma.org/) (really good), frameworks to `Java` language.
+I will not explain the concepts of `mutation test`, because there is a lot of material online that do this. I recommend seeing [this pdf, from Stuart Anderson](http://www.inf.ed.ac.uk/teaching/courses/st/2011-12/Resource-folder/09_mutation.pdf) to learn about or [one article from Frank Appel](http://www.codeaffine.com/2015/10/05/what-the-heck-is-mutation-testing/) that show the concepts and some examples using [`JUnit`](http://junit.org) and [`EclEmma`](http://www.eclemma.org/) (really good), frameworks to the `Java` language.
 
 ## Uses
 
@@ -196,7 +196,7 @@ To generate the mutants, this repository is using the [`cosmic-ray`](https://git
 
 ### Code `coverage`
 
-A code 100% covered is always good? No, this is only one (good) metric, and if is combined with others metrics and techniques, the code will be better.
+Is a code 100% covered always good? No, this is only one (good) metric, and if it is combined with other metrics and techniques, the code will be better.
 
 Use this command to run the tests and generate the report
 
@@ -227,7 +227,7 @@ test.py      63     22    65%
 TOTAL        83     22    73%
 ```
 
-As you can see on report, the our BankAccout class (bank py) is 100% covered.
+As you can see on the report, the our BankAccout class (bank py) is 100% covered.
 
 ### `Mutation`
 
@@ -321,9 +321,9 @@ survival rate: 14.71%
 
 ```
 
-As you can see at the last line, the survival rate is 14.71%, in other words, this amount was the number of mutants that was not detected by the tests.
+As you can see on the last line, the survival rate is 14.71%, in other words, this amount was the number of mutants that was not detected by the tests.
 
-If you don't know about the concepts, please look [here](#explanation-of-mutation-test). Resuming, this number is saying that there are some "mistakes" that any programmer can do in the code, that will not be catched on the tests. One of the use from tests, is take this kind of situations, and, as you could see, didn't work.
+If you don't know about the concepts, please look [here](#explanation-of-mutation-test). Resuming, this number is saying that there are some "mistakes" that any programmer can do in the code, that will not be caught on the tests. One of the test usage, is taking this kind of situations, and, as you could see, didn't work.
 
 #### Eliminating the mutants
 
@@ -341,7 +341,7 @@ survival rate: 0.00%
 
 ### Is the code perfect?
 
-Now, our code is with 100% of coverage and 100% of mutants killeds. Is our code perfect? No, and I will show why.
+Now, our code is with 100% of coverage and 100% of mutants killed. Is our code perfect? No, and I will show why.
 
 If we write one test that try to transfer more money that one account has, we can see that it will happen (not expected) !!
 
@@ -355,7 +355,7 @@ def test_transfer_more_than_available_balance(self):
     self.assertEqual(self.account_2._balance, 10)
 ```
 
-If you try to run the `cosmic-ray`, one error will be shown. To check the error, is easier try to do only the unittest:
+If you try to run the `cosmic-ray`, one error will be shown. To check the error, the easiest way is with the unittest:
 
 ```bash
 $ python test.py
