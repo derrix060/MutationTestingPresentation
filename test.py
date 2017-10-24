@@ -44,6 +44,8 @@ class GoodTestBankAccount():
 
     def setUp(self):
         self.account = BankAccount("TestName", 0)
+        self.account_1 = BankAccount('For testing', 100)
+        self.account_2 = BankAccount('In dollars', 10)
 
     def test_blank(self):
         self.assertTrue(True)
