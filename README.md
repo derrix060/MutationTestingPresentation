@@ -27,7 +27,7 @@ $ python3 --version
 Python 3.X.X
 ```
 
-### Virtual Enviroment
+### Virtual Environment
 
 This step is not essencial, but is recommended.
 
@@ -63,7 +63,7 @@ $ sudo cp {conda folder}/bin/deactivate /home/bin
 $ conda list
 ```
 
-#### Creating a new virtual env
+#### Creating a new virtualenv
 
 Now create a new virtualenv. I will show how to do with conda
 
@@ -104,7 +104,7 @@ Proceed ([y]/n)?
 
 
 
-#### Activating this virtual env
+#### Activating a virtualenv
 
 After create you can "enter" in this env
 
