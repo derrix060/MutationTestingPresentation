@@ -160,7 +160,7 @@ $ source activate mutationTestEnv
 $ wget -O- https://bootstrap.pypa.io/get-pip.py | sudo python3
 ```
 
-### Installing the dependencies)
+### Installing the dependencies
 
 If you want to use any virtualenv, please make sure that it's activated. 
 
@@ -168,3 +168,220 @@ If you want to use any virtualenv, please make sure that it's activated.
 $ pip install -r requirements.txt
 ```
 
+
+## Explanation of BankAccount class
+
+The BankAccount class is a simple class that resume (a lot) how a bank account works. It is able to do some operations:
+
+- Deposit: put money on account
+- Withdraw: get the money from the account
+- Transfer: from one account to another
+
+This is not the best implementation of one bank account, but is fine enough to show some concepts of the `Mutation Tests`
+
+## Explanation of `Mutation Test`
+
+I will not explain the concepts of `mutation test`, because there are a lot of material online that do this. I recomend see [this pdf, from Stuart Anderson](http://www.inf.ed.ac.uk/teaching/courses/st/2011-12/Resource-folder/09_mutation.pdf) to learn about or [one article from Frank Appel](http://www.codeaffine.com/2015/10/05/what-the-heck-is-mutation-testing/) that show the concepts and some examples using [`JUnit`](http://junit.org) and [`EclEmma`](http://www.eclemma.org/) (really good), frameworks to `Java` language.
+
+## Uses
+
+To generate the mutants, this repository is using the [`cosmic-ray`](https://github.com/sixty-north/cosmic-ray) and [`coverage.py`](https://coverage.readthedocs.io) framework. If you haven't installed this yet, go to [this](#installing-the-dependencies) section.
+
+### Code `coverage`
+
+A code 100% covered is always good? No, this is only one (good) metric, and if is combined with others metrics and techniques, the code will be better.
+
+Use this command to run the tests and generate the report
+
+```bash
+# Run the coverage.py
+
+$ coverage run test.py
+
+test_deposit_negative_amount (__main__.BadTestBankAccount) ... ok
+test_deposit_positive_amount (__main__.BadTestBankAccount) ... ok
+test_transfer_positive_amount (__main__.BadTestBankAccount) ... ok
+test_withdraw_from_empty_account (__main__.BadTestBankAccount) ... ok
+test_withdraw_negative_amount (__main__.BadTestBankAccount) ... ok
+test_withdraw_positive_amount (__main__.BadTestBankAccount) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.001s
+
+
+# Now generate the report
+$ coverage report
+
+Name      Stmts   Miss  Cover
+-----------------------------
+bank.py      20      0   100%
+test.py      63     22    65%
+-----------------------------
+TOTAL        83     22    73%
+```
+
+As you can see on report, the our BankAccout class (bank py) is 100% covered.
+
+### `Mutation`
+
+Now is the moment that show why this repository was created. If you have any question about this command, please read the [`cosmic-ray` manual](cosmic-ray.readthedocs.io).
+
+```bash
+$ cosmic-ray init --test-runner=unittest --baseline=10 example.json bank -- . && cosmic-ray exec example.json && cosmic-ray dump example.json | cr-report
+```
+
+The result will be something like this: 
+
+```python
+job ID ceb227c5b8394138a0ba82ccdcf83a44:survived:bank
+command: cosmic-ray worker bank mutate_comparison_operator 2 unittest -- .
+--- mutation diff ---
+--- a{your folder}/practical/bank.py
++++ b{your folder}/practical/bank.py
+@@ -10,7 +10,7 @@
+ 
+     def deposit(self, amount):
+         '\n            Deposit some money in this account.\n        '
+-        if (amount <= 0):
++        if (amount < 0):
+             raise ValueError('Deposit must be greater than zero!')
+         self._balance += amount
+ 
+
+job ID a935eb2bb00446f9af4e9a1206880ac2:survived:bank
+command: cosmic-ray worker bank mutate_comparison_operator 11 unittest -- .
+--- mutation diff ---
+--- a{your folder}/practical/bank.py
++++ b{your folder}/practical/bank.py
+@@ -16,7 +16,7 @@
+ 
+     def withdraw(self, amount):
+         '\n            Withdraw some money for this account.\n        '
+-        if (amount <= 0):
++        if (amount < 0):
+             raise ValueError('Withdraw must be greater than zero!')
+         if (amount <= self._balance):
+             self._balance -= amount
+
+job ID 9e1ceb756747497f868f00f0010caea5:survived:bank
+command: cosmic-ray worker bank mutate_comparison_operator 20 unittest -- .
+--- mutation diff ---
+--- a{your folder}/practical/bank.py
++++ b{your folder}/practical/bank.py
+@@ -18,7 +18,7 @@
+         '\n            Withdraw some money for this account.\n        '
+         if (amount <= 0):
+             raise ValueError('Withdraw must be greater than zero!')
+-        if (amount <= self._balance):
++        if (amount < self._balance):
+             self._balance -= amount
+             return True
+         else:
+
+job ID 2e68a9f0ddc3430486833dc42e480ad4:survived:bank
+command: cosmic-ray worker bank number_replacer 0 unittest -- .
+--- mutation diff ---
+--- a{your folder}/practical/bank.py
++++ b{your folder}/practical/bank.py
+@@ -10,7 +10,7 @@
+ 
+     def deposit(self, amount):
+         '\n            Deposit some money in this account.\n        '
+-        if (amount <= 0):
++        if (amount <= 1):
+             raise ValueError('Deposit must be greater than zero!')
+         self._balance += amount
+ 
+
+job ID 55f9c09099eb491a97c40d8091ac3c51:survived:bank
+command: cosmic-ray worker bank number_replacer 1 unittest -- .
+--- mutation diff ---
+--- a{your folder}/practical/bank.py
++++ b{your folder}/practical/bank.py
+@@ -16,7 +16,7 @@
+ 
+     def withdraw(self, amount):
+         '\n            Withdraw some money for this account.\n        '
+-        if (amount <= 0):
++        if (amount <= 1):
+             raise ValueError('Withdraw must be greater than zero!')
+         if (amount <= self._balance):
+             self._balance -= amount
+
+total jobs: 34
+complete: 34 (100.00%)
+survival rate: 14.71%
+
+```
+
+As you can see at the last line, the survival rate is 14.71%, in other words, this amount was the number of mutants that was not detected by the tests.
+
+If you don't know about the concepts, please look [here](#explanation-of-mutation-test). Resuming, this number is saying that there are some "mistakes" that any programmer can do in the code, that will not be catched on the tests. One of the use from tests, is take this kind of situations, and, as you could see, didn't work.
+
+#### Eliminating the mutants
+
+I've already done this job for you. Just comment the [line 42](https://github.com/derrix060/MutationTestingPresentation/blob/master/test.py#L42) and uncomment the [line 43](https://github.com/derrix060/MutationTestingPresentation/blob/master/test.py#L43) of the test file.
+
+If you run again the command for `cosmic-ray`, you can see that the result now is different.
+
+```bash
+$ cosmic-ray init --test-runner=unittest --baseline=10 example.json bank -- . && cosmic-ray exec example.json && cosmic-ray dump example.json | cr-report
+
+total jobs: 34
+complete: 34 (100.00%)
+survival rate: 0.00%
+```
+
+### Is the code perfect?
+
+Now, our code is with 100% of coverage and 100% of mutants killeds. Is our code perfect? No, and I will show why.
+
+If we write one test that try to transfer more money that one account has, we can see that it will happen (not expected) !!
+
+One example is write this function on [test.py](https://github.com/derrix060/MutationTestingPresentation/blob/master/test.py):
+
+```python
+def test_transfer_more_than_available_balance(self):
+    self.account_1.transfer_to(self.account_2, 150)
+
+    self.assertEqual(self.account_1._balance, 100)
+    self.assertEqual(self.account_2._balance, 10)
+```
+
+If you try to run the `cosmic-ray`, one error will be shown. To check the error, is easier try to do only the unittest:
+
+```bash
+$ python test.py
+
+
+test_deposit_negative_amount (__main__.BadTestBankAccount) ... ok
+test_deposit_positive_amount (__main__.BadTestBankAccount) ... ok
+test_transfer_positive_amount (__main__.BadTestBankAccount) ... ok
+test_withdraw_from_empty_account (__main__.BadTestBankAccount) ... ok
+test_withdraw_negative_amount (__main__.BadTestBankAccount) ... ok
+test_withdraw_positive_amount (__main__.BadTestBankAccount) ... ok
+test_blank (__main__.GoodTestBankAccount) ... ok
+test_deposit_minimum_amount (__main__.GoodTestBankAccount) ... ok
+test_deposit_zero_amount (__main__.GoodTestBankAccount) ... ok
+test_transfer_more_than_available_balance (__main__.GoodTestBankAccount) ... FAIL
+test_transfer_negative_amount (__main__.GoodTestBankAccount) ... ok
+test_withdraw_maximum_amount (__main__.GoodTestBankAccount) ... ok
+test_withdraw_positive_amount_max (__main__.GoodTestBankAccount) ... ok
+test_withdraw_positive_amount_min (__main__.GoodTestBankAccount) ... ok
+test_withdraw_zero_amount (__main__.GoodTestBankAccount) ... ok
+
+======================================================================
+FAIL: test_transfer_more_than_available_balance (__main__.GoodTestBankAccount)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test.py", line 93, in test_transfer_more_than_available_balance
+    self.assertEqual(self.account_2._balance, 10)
+AssertionError: 160 != 10
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.003s
+
+FAILED (failures=1)
+```
+
+We can see that the test has failed, even with 100% of coverage and mutants killed.
